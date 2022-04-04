@@ -86,13 +86,6 @@ cout<<"Please select a filter to apply or 0 to exit:\n"
 <<"     4- Flip Image\n"
 <<"     5- Rotate Image\n"
 <<"     6- Darken and Lighten Image\n"
-<<"     7- Detect Image Edges\n"
-<<"     8- Enlarge Image\n"
-<<"     9- Shrink Image\n"
-<<"     a- Mirror 1/2 Image\n"
-<<"     b- Shuffle Image\n"
-<<"     c- Blur Image\n"
-<<"     s- Save the image to a file\n"
 <<"     0- Exit\n"
 <<"     >> ";cin>>choose;
 
@@ -108,6 +101,15 @@ case '2':
     f2_invert();
     saveImage();    
     break;
+
+case '3':
+//  doaa
+    break;
+
+case '4':
+//  agamy
+    break;
+
 case '5':
     f5:
     cout<<"Rotate (90), (180) or (270) degrees?"<<endl
@@ -133,7 +135,9 @@ case '5':
     else{cout<<"Wrong input please try again"; goto f5;}
     break;
 
-
+case '6':
+//  doaa
+    break;
 
 default:
     cout<<"Wrong inpur please try again";
