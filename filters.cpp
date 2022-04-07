@@ -1,3 +1,12 @@
+// FCAI – Programming 1 – 2022 - Assignment 3
+// Program Name: filters.cpp
+// Program Description: filters team task- this program make filters on photos
+// Last Modification Date: 7/04/2022
+// Author1 and ID and Group: Ahmed Mohamed Taha - 20210033 - Group A - S8
+// Author2 and ID and Group: Doaa Mahdy Mohamed - 20210128 - Group A - S8
+// Author3 and ID and Group: Omar Ayman Saad    - 20210261 - Group A - S8
+// Purpose: training on 2D array
+
 #include<iostream>
 #include <fstream>
 #include <cstring>
