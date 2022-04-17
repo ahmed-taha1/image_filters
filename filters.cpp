@@ -37,7 +37,7 @@ void f6_rotate ();
 // void f7_Detect_Edges ();
 void f8_Enlarge_Image ();
 void f9_shrink ();
-// void fa_mirror ();
+void fa_mirror ();
 void fb_Shuffle_Image ();
 void fc_Blur_Image ();
 
@@ -134,12 +134,12 @@ int main() {
                 saveImage();
                 break;
 
-            /*
+//          filter a : mirror image
             case 'a':
                 fa_mirror();
-                saveImage();
+                saveImage2();
                 break;
-            */
+            
 
 //          filter b : shuffle image
             case 'b':
@@ -471,7 +471,9 @@ void f9_shrink() {
     }
 }
 
-// void fa_mirror(); { write code here }
+void fa_mirror() {
+//
+}
 
 void fb_Shuffle_Image() {
     int x[4],startX,startY;
