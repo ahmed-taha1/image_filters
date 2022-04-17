@@ -472,7 +472,7 @@ void f9_shrink() {
 }
 
 void fa_mirror() {
-//
+ //
 }
 
 void fb_Shuffle_Image() {
