@@ -470,8 +470,9 @@ void f9_shrink() {
         row += min;
     }
 }
-
+int u;
 void fa_mirror() {
+    // Asking the user which part to mirror it
     int choose ;
     cout<<"\n\nplease choose your mirror half"
     <<"\n1- left half"
@@ -480,7 +481,7 @@ void fa_mirror() {
     <<"\n4- lower half"
     <<"\n>> ";
     cin>>choose;
-    
+    //Copying the part chosen in a new array and reverse it
     switch (choose){
         case 1:
             for(int i=0; i<SIZE; i++){
@@ -488,7 +489,7 @@ void fa_mirror() {
                     image2[i][j]=image[i][j];
                 }
             }
-            int u=SIZE/2;
+            u=SIZE/2;
             for(int i=0; i<SIZE; i++){
                 for(int j=SIZE/2; j>0; j--){
                     image2[i][u]=image[i][j];
@@ -497,9 +498,53 @@ void fa_mirror() {
                 u=SIZE/2;
             }
             break;
-
+        case 2:
+            for(int i=0; i<SIZE; i++){
+                for(int j=SIZE/2; j<SIZE; j++){
+                    image2[i][j]=image[i][j];
+                }
+            }
+            u=0;
+            for(int i=0; i<SIZE; i++){
+                for(int j=SIZE; j>SIZE/2; j--){
+                    image2[i][u]=image[i][j];
+                    u++;
+                }
+                u=0;
+            }
+            break;
+        case 3:
+          for(int i=0; i<SIZE/2; i++){
+                for(int j=0; j<SIZE; j++){
+                    image2[i][j]=image[i][j];
+                }
+            }
+            u=SIZE/2;
+            for(int i=SIZE/2; i>0; i--){
+                for(int j=0; j<SIZE; j++){
+                    image2[u][j]=image[i][j];
+                    
+                }
+                u++;
+            }
+            break;
+        case 4:
+              for(int i=SIZE/2; i<SIZE; i++){
+                for(int j=0; j<SIZE; j++){
+                    image2[i][j]=image[i][j];
+                }
+            }
+            u=0;
+            for(int i=SIZE; i>SIZE/2; i--){
+                for(int j=0; j<SIZE; j++){
+                    image2[u][j]=image[i][j];
+                    
+                }
+                u++;
+            }
+            break;
+        }
     }
-}
 
 void fb_Shuffle_Image() {
     int x[4],startX,startY;
