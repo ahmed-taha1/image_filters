@@ -56,7 +56,7 @@ int main() {
             cout<<"please try again\n\n";
             continue;
             }
-        
+
         cout<<"Please select a filter to apply or 0 to exit:\n"
             <<"     1- Black & White Filter                 \n"
             <<"     2- Invert Filter                        \n"
@@ -74,7 +74,7 @@ int main() {
             <<"     0- Exit                                 \n"
             <<"     >> "; cin>>choose;
 
-        
+
         switch (choose)
         {
 //          filter 1 : black & white
@@ -131,7 +131,7 @@ int main() {
                 f9_shrink();
                 saveImage();
                 break;
-            
+
             /*
             case 'a':
                 fa_mirror();
@@ -232,18 +232,21 @@ void f2_invert() {
 }
 
 void f3_Merge() {
-    
+
     f3:
     char imageFileName2[100];
 
-    cout<<"\n\nEnter the source image file name: ";
+    //User is required to enter a second image filename
+    cout<<"\n\nEnter the source image filename: ";
     cin >> imageFileName2;
     strcat (imageFileName2, ".bmp");
     if(readGSBMP(imageFileName2, image2)==1)
     {cout<<"please try again"; goto f3;}
 
+    //loop over each pixel of the two images at the same time
     for (int i=0; i<SIZE; i++) {
         for (int j=0; j<SIZE; j++) {
+            //Calculate the average of the corresponding two pixels of input images
             image[i][j] = (image[i][j] + image2[i][j])/2;
         }
     }
@@ -256,17 +259,17 @@ void f4_flip() {
     cout<<"\n\nFlip (h)orizontally or (v)ertically ?"
     "\n>> ";cin>>fl;
 
-//  if user enterd h or H 
+//  if user enterd h or H
     if(fl=='h' || fl=='H'){
 
-//      swap each pixel of image from the first pixel 
-//      in each row by the last one in the same row. 
+//      swap each pixel of image from the first pixel
+//      in each row by the last one in the same row.
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE/2; j++) {
                 swap(image[i][j],image[i][(SIZE-1)-j]);
             }
         }
-    }    
+    }
 
 //  else if user enterd v or V
     else if(fl=='v' || fl=='V'){
@@ -280,7 +283,7 @@ void f4_flip() {
         }
     }
 
-//  else wrong input go to start point 
+//  else wrong input go to start point
     else{cout<<"\nwrong input please try again\n"; goto f4;}
 
 }
@@ -309,11 +312,11 @@ void f5_darken_lighten() {
         case 'D':
 //          in darken case divide each pixel over 2 to get the half light
             for (int i = 0; i < SIZE; i++) {
-                for (int j = 0; j< SIZE; j++) 
+                for (int j = 0; j< SIZE; j++)
                     image[i][j]/=2;
             }
-            break;        
-        
+            break;
+
         default:
             cout<<"invalid input please try again";
             goto f5;
@@ -330,7 +333,7 @@ void f6_rotate() {
     if(choose1==90){
         for (int i = 0; i < SIZE / 2; i++) {
             for (int j = i; j < SIZE - i - 1; j++) {
-//              Store current pixel in helper variable 
+//              Store current pixel in helper variable
                 char helper = image[i][j];
 
 //              Swap elements of each cycle
@@ -348,8 +351,8 @@ void f6_rotate() {
         }
     }
 
-    else if (choose1==180) {    
-//      in 180 degree we used the main algorithm of 90 degree two times to get 90+90 swap that equal 180 degree        
+    else if (choose1==180) {
+//      in 180 degree we used the main algorithm of 90 degree two times to get 90+90 swap that equal 180 degree
         for(int i=0; i<2; i++){
             for (int i = 0; i < SIZE / 2; i++) {
                 for (int j = i; j < SIZE - i - 1; j++) {
@@ -362,10 +365,10 @@ void f6_rotate() {
             }
         }
     }
-                
+
 
     else if(choose1==270) {
-//      in 270 degree we used the main algorithm of 90 degree three times to get 90+90+90 swap that equal 270 degree        
+//      in 270 degree we used the main algorithm of 90 degree three times to get 90+90+90 swap that equal 270 degree
         for(int i=0; i<3; i++){
             for (int i = 0; i < SIZE / 2; i++) {
                 for (int j = i; j < SIZE - i - 1; j++) {
@@ -388,8 +391,10 @@ void f6_rotate() {
 void f8_Enlarge_Image() {
     unsigned int choice, startX, startY;
     f8:
+        //User is required to enter number of the quarter to be enlarged
     cout<<"\n\n>> which quarter of the picture do you wish to enlarge?\n"
     ">> "; cin>>choice;
+    //Set StartX and StartY positions to specify the desired quarter to be enlarged
     switch (choice) {
         case 1:
             startX = startY = 0;
@@ -416,7 +421,7 @@ void f8_Enlarge_Image() {
             break;
 
     }
-
+    //Duplicate each column of the selected quarter to increase its width
     int row = 0;
     for(int k=startX; k<SIZE ; k++){
         int col =0 ;
@@ -427,7 +432,7 @@ void f8_Enlarge_Image() {
             image2[row][++col] = image[k][i];
         }
 
-    
+    //Duplicate each row of the selected quarter to increase its length
        for (int j =0 ;j<SIZE ;j++){
             image2[row+1][j]=image2[row][j];
         }
@@ -437,6 +442,7 @@ void f8_Enlarge_Image() {
 }
 
 void f9_shrink() {
+    //User is required to enter ratio by which the dimensions will be shrunk
     int  min;
     cout<<"\n\n1-to shrink image dimension to 1/2"
     <<"\n2-to shrink image dimension to 1/3"
@@ -445,14 +451,15 @@ void f9_shrink() {
     min+=1;
 
     int row = 0;
-    
     for (int i = 0; i < SIZE; i++) {
         int col = 0;
         for (int j = 0; j < SIZE; j++) {
+                //If the current pixel is out of range(dependent on the ratio) set its value to 255(white)
             if (i > SIZE / min || j > SIZE / min) {
                 image[i][j] = 255;
 
             } else
+            //exclude pixels depending on specified ratio
                 image[i][j] = image[row][col];
             col += min;
         }
@@ -496,11 +503,11 @@ void fb_Shuffle_Image() {
                 cout<<"invalid input";
                 goto fb;
                 break;
-                
+
             }
         int u=startX;
-        
-//      in first loop fill the first quartile in new varaible from the original image using the start points 
+
+//      in first loop fill the first quartile in new varaible from the original image using the start points
         if(i==0){
             for(int i=0; i<SIZE/2; i++){
                 startX=u;
@@ -513,7 +520,7 @@ void fb_Shuffle_Image() {
 
         }
 
-//      in second loop fill the second quartile in new varaible from the original image using the start points 
+//      in second loop fill the second quartile in new varaible from the original image using the start points
         else if(i==1){
                 for(int i=0; i<SIZE/2; i++){
                     startX=u;
@@ -525,7 +532,7 @@ void fb_Shuffle_Image() {
             }
         }
 
-//      in third loop fill the third quartile in new varaible from the original image using the start points         
+//      in third loop fill the third quartile in new varaible from the original image using the start points
         else if(i==2){
                 for(int i=SIZE/2; i<SIZE; i++){
                     startX=u;
@@ -537,7 +544,7 @@ void fb_Shuffle_Image() {
             }
         }
 
-//      in fourth loop fill the fourth quartile in new varaible from the original image using the start points 
+//      in fourth loop fill the fourth quartile in new varaible from the original image using the start points
         else if(i==3){
             for(int i=SIZE/2; i<SIZE; i++){
                 startX=u;
@@ -558,7 +565,7 @@ void fc_Blur_Image() {
     // fill new variable by the border from the main photo
     for(int i=0; i<SIZE; i++){
         for(int j=0; j<SIZE; j++){
-            
+
             if(i==0 || j==0 || i==SIZE-1 || j==SIZE-1){
                 image2[i][j]=image[i][j];}
 
