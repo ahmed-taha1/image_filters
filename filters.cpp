@@ -472,7 +472,33 @@ void f9_shrink() {
 }
 
 void fa_mirror() {
- //
+    int choose ;
+    cout<<"\n\nplease choose your mirror half"
+    <<"\n1- left half"
+    <<"\n2- right half"
+    <<"\n3- upper half"
+    <<"\n4- lower half"
+    <<"\n>> ";
+    cin>>choose;
+    
+    switch (choose){
+        case 1:
+            for(int i=0; i<SIZE; i++){
+                for(int j=0; j<SIZE/2; j++){
+                    image2[i][j]=image[i][j];
+                }
+            }
+            int u=SIZE/2;
+            for(int i=0; i<SIZE; i++){
+                for(int j=SIZE/2; j>0; j--){
+                    image2[i][u]=image[i][j];
+                    u++;
+                }
+                u=SIZE/2;
+            }
+            break;
+
+    }
 }
 
 void fb_Shuffle_Image() {
