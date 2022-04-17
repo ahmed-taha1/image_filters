@@ -24,7 +24,7 @@ unsigned char image[SIZE][SIZE];
 unsigned char image2[SIZE][SIZE];
 
 // functions included
-void loadImage ();
+int loadImage ();
 void saveImage ();
 void saveImage2 ();
 void f1_black_white ();
@@ -51,25 +51,28 @@ int main() {
     // main window
     while(choose!='0'){
 
-        cout<<"Ahlan ya user ya habibi :)"<<endl;
-        loadImage();
-
+        cout<<"Ahlan ya user ya habibi :)\n";
+        if(loadImage()==0){
+            cout<<"please try again\n\n";
+            continue;
+            }
+        
         cout<<"Please select a filter to apply or 0 to exit:\n"
-            <<"     1- Black & White Filter\n"
-            <<"     2- Invert Filter\n"
-            <<"     3- Merge Filter\n"
-            <<"     4- Flip Image\n"
-            <<"     5- darken and lighten image\n"
-            <<"     6- Rotate Image\n"
-            <<"     7- Detect Image Edges\n"
-            <<"     8- Enlarge Image\n"
-            <<"     9- Shrink Image\n"
-            <<"     a- Mirror 1/2 Image\n"
-            <<"     b- Shuffle Image\n"
-            <<"     c- Blur Image\n"
-            <<"     s- Save the image to a file\n"
-            <<"     0- Exit\n"
-            <<"     >> ";cin>>choose;
+            <<"     1- Black & White Filter                 \n"
+            <<"     2- Invert Filter                        \n"
+            <<"     3- Merge Filter                         \n"
+            <<"     4- Flip Image                           \n"
+            <<"     5- darken and lighten image             \n"
+            <<"     6- Rotate Image                         \n"
+            <<"     7- Detect Image Edges                   \n"
+            <<"     8- Enlarge Image                        \n"
+            <<"     9- Shrink Image                         \n"
+            <<"     a- Mirror 1/2 Image                     \n"
+            <<"     b- Shuffle Image                        \n"
+            <<"     c- Blur Image                           \n"
+            <<"     s- Save the image to a file             \n"
+            <<"     0- Exit                                 \n"
+            <<"     >> "; cin>>choose;
 
         
         switch (choose)
@@ -148,7 +151,7 @@ int main() {
 
 //          wrong input case
             default:
-                cout<<"Wrong inpur please try again";
+                cout<<"\nWrong inpur please try again\n";
                 break;
         }
         // clear screen
@@ -165,7 +168,7 @@ int main() {
 
 
 // functions
-void loadImage () {
+int loadImage () {
     char imageFileName[100];
 
     // Get gray scale image file name
@@ -174,7 +177,8 @@ void loadImage () {
 
     // Add to it .bmp extension and load image
     strcat (imageFileName, ".bmp");
-    readGSBMP(imageFileName, image);
+    if (readGSBMP(imageFileName, image)==1) {return 0;}
+    return 1;
 }
 
 void saveImage () {
@@ -182,7 +186,7 @@ void saveImage () {
     char imageFileName[100];
 
     // Get gray scale image target file name
-    cout << "\nEnter the target image file name: ";
+    cout << "\nEnter the target image file output name: ";
     cin >> imageFileName;
 
     // Add to it .bmp extension and load image
@@ -195,7 +199,7 @@ void saveImage2 () {
     char imageFileName[100];
 
     // Get gray scale image target file name
-    cout << "\nEnter the target image file name: ";
+    cout << "\nEnter the target image file output name: ";
     cin >> imageFileName;
 
     // Add to it .bmp extension and load image
@@ -228,13 +232,15 @@ void f2_invert() {
 }
 
 void f3_Merge() {
-
+    
+    f3:
     char imageFileName2[100];
 
-    cout<<"Enter the source image file name: ";
+    cout<<"\n\nEnter the source image file name: ";
     cin >> imageFileName2;
     strcat (imageFileName2, ".bmp");
-    readGSBMP(imageFileName2, image2);
+    if(readGSBMP(imageFileName2, image2)==1)
+    {cout<<"please try again"; goto f3;}
 
     for (int i=0; i<SIZE; i++) {
         for (int j=0; j<SIZE; j++) {
@@ -247,7 +253,7 @@ void f4_flip() {
     char fl;
 //  return point if user enterd a wrong input
     f4:
-    cout<<"\nFlip (h)orizontally or (v)ertically ?"
+    cout<<"\n\nFlip (h)orizontally or (v)ertically ?"
     "\n>> ";cin>>fl;
 
 //  if user enterd h or H 
@@ -275,7 +281,7 @@ void f4_flip() {
     }
 
 //  else wrong input go to start point 
-    else{cout<<"wrong input please try again"; goto f4;}
+    else{cout<<"\nwrong input please try again\n"; goto f4;}
 
 }
 
@@ -283,7 +289,7 @@ void f5_darken_lighten() {
     char ch;
 //  return point if user enterd a wrong input
     f5:
-    cout<<">> (d)arken or (l)ighten?"
+    cout<<"\n\n>> (d)arken or (l)ighten?"
     "\n>> ";cin>>ch;
 
     switch(ch){
@@ -318,7 +324,7 @@ void f5_darken_lighten() {
 void f6_rotate() {
     int choose1;
     f6:
-    cout<<"Rotate (90), (180) or (270) degrees?"<<endl
+    cout<<"\n\nRotate (90), (180) or (270) degrees?"<<endl
     <<">> "; cin>>choose1;
 
     if(choose1==90){
@@ -382,7 +388,7 @@ void f6_rotate() {
 void f8_Enlarge_Image() {
     unsigned int choice, startX, startY;
     f8:
-    cout<<"\n>> which quarter of the picture do you wish to enlarge?\n"
+    cout<<"\n\n>> which quarter of the picture do you wish to enlarge?\n"
     ">> "; cin>>choice;
     switch (choice) {
         case 1:
@@ -432,8 +438,10 @@ void f8_Enlarge_Image() {
 
 void f9_shrink() {
     int  min;
-    cout<<"1-to shrink image dimension to 1/2\n2-to shrink image dimension to 1/3\n3-to shrink image dimension to 1/4\n>> ";
-    cin >> min;
+    cout<<"\n\n1-to shrink image dimension to 1/2"
+    <<"\n2-to shrink image dimension to 1/3"
+    <<"\n3-to shrink image dimension to 1/4"
+    <<"\n>> "; cin >> min;
     min+=1;
 
     int row = 0;
@@ -460,7 +468,7 @@ void fb_Shuffle_Image() {
 //  return point if user enterd a wrong input
     fb:
 
-    cout<<"enter the order of quarters with a space"
+    cout<<"\n\nenter the order of quarters with a space"
     "\n>> ";cin>>x[0]>>x[1]>>x[2]>>x[3];
 
 //  make 4 loops to find start point in x axis and y axis in each value in array
