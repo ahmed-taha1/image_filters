@@ -132,10 +132,10 @@ int main() {
 
 
 //          filter 9 : shrink image
-          /*  case '9':
+           case '9':
                 f9_shrink();
                 saveImage();
-                break;*/
+                break;
 
 
             /*
@@ -493,6 +493,48 @@ void f8_Enlarge_Image() {
         if  (row>256) break;
     }
 }
+
+
+
+
+void f9_shrink() {
+    //User is required to enter ratio by which the dimensions will be shrunk
+    int  min;
+    cout<<"\n\n1-to shrink image dimension to 1/2"
+    <<"\n2-to shrink image dimension to 1/3"
+    <<"\n3-to shrink image dimension to 1/4"
+    <<"\n>> "; cin >> min;
+    min+=1;
+
+    int row = 0;
+    for (int i = 0; i < SIZE; i++) {
+        int col = 0;
+        for (int j = 0; j < SIZE; j++) {
+            //If the current pixel is out of range(dependent on the ratio) set its value to 255(white)
+            if (i > SIZE / min || j > SIZE / min) {
+
+
+                image[i][j][0] = 255;
+                image[i][j][1] = 255 ;
+                image[i][j][2] = 255;
+
+
+            } else{
+            //exclude pixels depending on specified ratio
+                image[i][j][0] = image[row][col][0];
+                image[i][j][1] = image[row][col][1];
+                image[i][j][2] = image[row][col][2];
+
+
+                }
+
+        col += min;
+           // if  (col>256) break;
+    }
+        row += min;
+           //if  (row>256) break;
+   }
+  }
 
 /*
 void f9_shrink() {
