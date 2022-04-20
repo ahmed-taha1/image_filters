@@ -529,10 +529,10 @@ void f9_shrink() {
                 }
 
         col += min;
-           // if  (col>256) break;
+
     }
         row += min;
-           //if  (row>256) break;
+
    }
   }
 
