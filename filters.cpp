@@ -490,6 +490,8 @@ void fa_mirror() {
     //Copying the part chosen in a new array and reverse it
     switch (choose){
         case 1:
+            /*in the first case we make for loops to fill the part in the new array
+            from right to left then mirror it */
             for(int i=0; i<SIZE; i++){
                 for(int j=0; j<SIZE/2; j++){
                     image2[i][j]=image[i][j];
@@ -505,6 +507,8 @@ void fa_mirror() {
             }
             break;
         case 2:
+            /*in the second case we make for loops to fill the part in the new array
+            from left to right then mirror it */
             for(int i=0; i<SIZE; i++){
                 for(int j=SIZE/2; j<SIZE; j++){
                     image2[i][j]=image[i][j];
@@ -521,7 +525,9 @@ void fa_mirror() {
             break;
 
         case 3:
-          for(int i=0; i<SIZE/2; i++){
+            /*in the third case we make for loops to fill the part in the new array
+            from up to down then mirror it */
+            for(int i=0; i<SIZE/2; i++){
                 for(int j=0; j<SIZE; j++){
                     image2[i][j]=image[i][j];
                 }
@@ -537,7 +543,9 @@ void fa_mirror() {
             break;
 
         case 4:
-              for(int i=SIZE/2; i<SIZE; i++){
+            /*in the fourth case we make for loops to fill the part in the new array
+            from down to up then mirror it */
+            for(int i=SIZE/2; i<SIZE; i++){
                 for(int j=0; j<SIZE; j++){
                     image2[i][j]=image[i][j];
                 }
