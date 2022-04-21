@@ -34,7 +34,7 @@ void f3_Merge ();
 void f4_flip ();
 void f5_darken_lighten ();
 void f6_rotate ();
-// void f7_Detect_Edges ();
+void f7_Detect_Edges ();
 void f8_Enlarge_Image ();
 void f9_shrink ();
 void fa_mirror ();
@@ -115,12 +115,12 @@ int main() {
                 saveImage();
                 break;
 
-            /*
+            
             case '7':
                 f7_Detect_Edges();
                 saveImage2();
                 break;
-            */
+            
 
 //          filter 8 : englarge image
             case '8':
@@ -389,8 +389,11 @@ void f6_rotate() {
     else{cout<<"invalid input please try again"; goto f6;}
 
 }
+int g = 0;
+void f7_Detect_Edges() {
+    
+    }
 
-// void f7_Detect_Edges(); { write code here }
 
 void f8_Enlarge_Image() {
     unsigned int choice, startX, startY;

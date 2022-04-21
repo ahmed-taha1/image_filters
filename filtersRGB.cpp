@@ -38,7 +38,7 @@ void f6_rotate ();
 // void f7_Detect_Edges ();
 void f8_Enlarge_Image ();
 void f9_shrink ();
-// void fa_mirror ();
+void fa_mirror ();
 void fb_Shuffle_Image ();
 void fc_Blur_Image ();
 
@@ -138,12 +138,12 @@ int main() {
                 break;*/
 
 
-            /*
+            
             case 'a':
                 fa_mirror();
-                saveImage();
+                saveImage2();
                 break;
-            */
+            
 
 //          filter b : shuffle image
             case 'b':
@@ -499,7 +499,106 @@ void f9_shrink() {
 
 }*/
 
-// void fa_mirror(); { write code here }
+void fa_mirror() {
+     // Asking the user which part to mirror it
+    int choose,u ;
+    cout<<"\n\nplease choose your mirror half"
+    <<"\n1- left half"
+    <<"\n2- right half"
+    <<"\n3- upper half"
+    <<"\n4- lower half"
+    <<"\n>> ";
+    cin>>choose;
+    //Copying the part chosen in a new array and reverse it
+    switch (choose){
+        case 1:
+        /*in the first case we make for loops to fill the part in the new array
+            from right to left then mirror it */
+        for(int k=0 ; k<RGB ; k++){
+            for(int i=0; i<SIZE; i++){
+                for(int j=0; j<SIZE/2; j++){
+                    image2[i][j][k]=image[i][j][k];
+                }
+            }
+        }
+            u=SIZE/2;
+        for(int k=0 ; k<RGB ; k++){
+            for(int i=0; i<SIZE; i++){
+                for(int j=SIZE/2; j>0; j--){
+                    image2[i][u][k]=image[i][j][k];
+                    u++;
+                }
+                u=SIZE/2;
+            }
+        }
+            break;
+        case 2:
+            /*in the second case we make for loops to fill the part in the new array
+            from left to right then mirror it */
+        for(int k=0 ; k<RGB ; k++){
+            for(int i=0; i<SIZE; i++){
+                for(int j=SIZE/2; j<SIZE; j++){
+                    image2[i][j][k]=image[i][j][k];
+                }
+            }
+        }
+            u=0;
+        for(int k=0 ; k<RGB ; k++){
+            for(int i=0; i<SIZE; i++){
+                for(int j=SIZE; j>SIZE/2; j--){
+                    image2[i][u][k]=image[i][j][k];
+                    u++;
+                }
+                u=0;
+            }
+        }
+            break;
+
+        case 3:
+            /*in the third case we make for loops to fill the part in the new array
+            from up to down then mirror it */
+        for(int k=0 ; k<RGB ; k++){
+            for(int i=0; i<SIZE/2; i++){
+                for(int j=0; j<SIZE; j++){
+                    image2[i][j][k]=image[i][j][k];
+                }
+            }
+        }
+            u=SIZE/2;
+        for(int k=0 ; k<RGB ; k++){
+            for(int i=SIZE/2; i>0; i--){
+                for(int j=0; j<SIZE; j++){
+                    image2[u][j][k]=image[i][j][k];
+                    
+                }
+                u++;
+            }
+        }
+            break;
+
+        case 4:
+            /*in the fourth case we make for loops to fill the part in the new array
+            from down to up then mirror it */
+        for(int k=0 ; k<RGB ; k++){
+            for(int i=SIZE/2; i<SIZE; i++){
+                for(int j=0; j<SIZE; j++){
+                    image2[i][j][k]=image[i][j][k];
+                }
+            }
+        }
+            u=0;
+        for(int k=0 ; k<RGB ; k++){
+            for(int i=SIZE; i>SIZE/2; i--){
+                for(int j=0; j<SIZE; j++){
+                    image2[u][j][k]=image[i][j][k];
+                    
+                }
+                u++;
+            }
+        }
+            break;
+        }
+}
 
 void fb_Shuffle_Image() {
     int x[4],startX,startY;
