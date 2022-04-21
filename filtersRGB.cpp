@@ -23,18 +23,21 @@ using namespace std;
 unsigned char image[SIZE][SIZE][RGB];
 unsigned char image2[SIZE][SIZE][RGB];
 unsigned char image3[SIZE][SIZE];
+unsigned char image4[SIZE][SIZE];
+
 // functions
 int loadImage ();
 void saveImage ();
 void saveImage2 ();
 void saveImage3 ();
+void saveImage4 ();
 void f1_black_white ();
 void f2_invert ();
 void f3_Merge ();
 void f4_flip ();
 void f5_darken_lighten ();
 void f6_rotate ();
-// void f7_Detect_Edges ();
+void f7_Detect_Edges ();
 void f8_Enlarge_Image ();
 void f9_shrink ();
 // void fa_mirror ();
@@ -116,12 +119,12 @@ int main() {
                 saveImage();
                 break;
 
-            /*
+            
             case '7':
                 f7_Detect_Edges();
-                saveImage2();
+                saveImage4();
                 break;
-            */
+            
 
             /*
 //          filter 8 : englarge image
@@ -229,20 +232,32 @@ void saveImage3 () {
     writeGSBMP(imageFileName, image3);
 }
 
+void saveImage4 () {
+
+    char imageFileName[100];
+
+    // Get gray scale image target file name
+    cout << "\nEnter the target image file output name: ";
+    cin >> imageFileName;
+
+    // Add to it .bmp extension and load image
+    strcat (imageFileName, ".bmp");
+    writeGSBMP(imageFileName, image4);
+}
+
 void f1_black_white() {
 //  loop in each pixel of image
-
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j< SIZE; j++) {
-    //          if pixel color above 127 (white dgrees) let it = 255 (solid white)
-                if (image[i][j][0] > 127)
-                    image3[i][j] = 255;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j< SIZE; j++) {
+    //      if pixel color above 127 (white dgrees) let it = 255 (solid white)
+            if (image[i][j][0] > 127)
+                image3[i][j] = 255;
     //          else if pixel color under 127 (black dgrees) let it = 0 (solid black)
-                else
-                    image3[i][j] = 0;
-            }
+            else
+                image3[i][j] = 0;
         }
-        
+    }
+
 }
 
 void f2_invert() {
@@ -254,7 +269,7 @@ void f2_invert() {
                 image[i][j][k] = 255-image[i][j][k];
             }
         }
-    }
+    } 
 }
 
 /*
@@ -423,7 +438,50 @@ void f6_rotate() {
 
 }
 
-// void f7_Detect_Edges(); { write code here }
+void f7_Detect_Edges() {
+//  convert image to black & white
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j< SIZE; j++) {
+    //      if pixel color above 127 (white dgrees) let it = 255 (solid white)
+            if (image[i][j][0] > 127)
+                image3[i][j] = 255;
+    //          else if pixel color under 127 (black dgrees) let it = 0 (solid black)
+            else
+                image3[i][j] = 0;
+        }
+    }
+
+    int j=0,i=0,bot,top,right,mid,left;
+
+    while(true){
+//      assign top & mid & right & left and bot pixels in each 3*3 matrix in photo
+        mid=image3[i+1][j+1];
+        right=image3[i+1][j+2];
+        left=image3[i+1][j];
+        bot=image3[i+2][j+1];
+        top=image3[i][j+1];
+
+//      edge detection equation
+        image4[i+1][j+1] = (right+left+bot+top) - (mid*4);
+
+
+
+//      condition to break the loop & increamnt
+        if(i==253 && j==253)  { break; }
+        else { i++; }
+
+        if(i==254) { i=0; j++; }
+
+    }
+
+//  invert image colors
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j< SIZE; j++) {
+//          subtract 255 from each pixel to get the invert pixel color
+            image4[i][j] = 255-image4[i][j];
+        }
+    }
+}
 
 /*
 void f8_Enlarge_Image() {

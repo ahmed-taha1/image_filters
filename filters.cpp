@@ -34,7 +34,7 @@ void f3_Merge ();
 void f4_flip ();
 void f5_darken_lighten ();
 void f6_rotate ();
-// void f7_Detect_Edges ();
+void f7_Detect_Edges ();
 void f8_Enlarge_Image ();
 void f9_shrink ();
 void fa_mirror ();
@@ -115,12 +115,12 @@ int main() {
                 saveImage();
                 break;
 
-            /*
+            
             case '7':
                 f7_Detect_Edges();
                 saveImage2();
                 break;
-            */
+            
 
 //          filter 8 : englarge image
             case '8':
@@ -390,7 +390,10 @@ void f6_rotate() {
 
 }
 
-// void f7_Detect_Edges(); { write code here }
+void f7_Detect_Edges() {
+    //
+}
+
 
 void f8_Enlarge_Image() {
     unsigned int choice, startX, startY;
@@ -472,6 +475,9 @@ void f9_shrink() {
 }
 int u;
 void fa_mirror() {
+    // declare return point when user enterd a wrong input
+    fa:
+
     // Asking the user which part to mirror it
     int choose ;
     cout<<"\n\nplease choose your mirror half"
@@ -513,6 +519,7 @@ void fa_mirror() {
                 u=0;
             }
             break;
+
         case 3:
           for(int i=0; i<SIZE/2; i++){
                 for(int j=0; j<SIZE; j++){
@@ -528,6 +535,7 @@ void fa_mirror() {
                 u++;
             }
             break;
+
         case 4:
               for(int i=SIZE/2; i<SIZE; i++){
                 for(int j=0; j<SIZE; j++){
@@ -542,6 +550,11 @@ void fa_mirror() {
                 }
                 u++;
             }
+            break;
+        
+        default:
+            cout<<"Wrong input please try again..";
+            goto fa;
             break;
         }
     }
