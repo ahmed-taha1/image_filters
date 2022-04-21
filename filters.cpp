@@ -1,7 +1,7 @@
 // FCAI – Programming 1 – 2022 - Assignment 3
 // Program Name: filters.cpp
 // Program Description: filters team task- this program make filters on photos
-// Last Modification Date: 7/17/2022
+// Last Modification Date: 21/4/2022
 // Author1 and ID and Group: Ahmed Mohamed Taha - 20210033 - Group A - S8
 // Author2 and ID and Group: Doaa Mahdy Mohamed - 20210128 - Group A - S8
 // Author3 and ID and Group: Omar Ayman Saad    - 20210261 - Group A - S8
@@ -115,7 +115,7 @@ int main() {
                 saveImage();
                 break;
 
-            
+//          filter 7 : Detect Edges
             case '7':
                 f7_Detect_Edges();
                 saveImage2();
@@ -134,7 +134,7 @@ int main() {
                 saveImage();
                 break;
 
-//          filter a : mirror image
+//          filter a : mirror half image
             case 'a':
                 fa_mirror();
                 saveImage2();
@@ -414,7 +414,7 @@ void f7_Detect_Edges() {
         top=image[i][j+1];
 
 //      edge detection equation
-        image2[i+1][j+1] = (right+left+bot+top) - (mid4);
+        image2[i+1][j+1] = (right+left+bot+top) - (mid*4);
 
 
 
@@ -515,13 +515,13 @@ void f9_shrink() {
         row += min;
     }
 }
-int u;
+
 void fa_mirror() {
     // declare return point when user enterd a wrong input
     fa:
 
     // Asking the user which part to mirror it
-    int choose ;
+    int choose , u;
     cout<<"\n\nplease choose your mirror half"
     <<"\n1- left half"
     <<"\n2- right half"

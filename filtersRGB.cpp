@@ -1,10 +1,11 @@
 // FCAI – Programming 1 – 2022 - Assignment 3
 // Program Name: filters.cpp
 // Program Description: filters team task- this program make filters on photos
-// Last Modification Date: 7/16/2022
+// Last Modification Date: 21/4/2022
 // Author1 and ID and Group: Ahmed Mohamed Taha - 20210033 - Group A - S8
 // Author2 and ID and Group: Doaa Mahdy Mohamed - 20210128 - Group A - S8
 // Author3 and ID and Group: Omar Ayman Saad    - 20210261 - Group A - S8
+// Teaching Assistant: Abdulrahman Abdulmonem
 // Purpose: training on 2D array
 
 // libraries
@@ -118,7 +119,7 @@ int main() {
                 saveImage();
                 break;
 
-            
+//          filter 7 : Detect Edges
             case '7':
                 f7_Detect_Edges();
                 saveImage4();
@@ -134,14 +135,14 @@ int main() {
 
 
 
-//          filter 9 : shrink image
+//         filter 9 : shrink image
            case '9':
                 f9_shrink();
                 saveImage();
                 break;
 
 
-            
+//          filter a : mirror half image
             case 'a':
                 fa_mirror();
                 saveImage2();
@@ -270,10 +271,7 @@ void f1_black_white() {
             else
                 image3[i][j] = 0;
         }
-<<<<<<< HEAD
     }
-=======
->>>>>>> ab1f5670e44f609682f7c573d8e9438f01116b7d
 
 }
 
