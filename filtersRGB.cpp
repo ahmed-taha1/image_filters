@@ -23,19 +23,22 @@ using namespace std;
 unsigned char image[SIZE][SIZE][RGB];
 unsigned char image2[SIZE][SIZE][RGB];
 unsigned char image3[SIZE][SIZE];
+unsigned char image4[SIZE][SIZE];
+
 // functions
 int loadImage ();
 int loadImage2();
 void saveImage ();
 void saveImage2 ();
 void saveImage3 ();
+void saveImage4 ();
 void f1_black_white ();
 void f2_invert ();
 void f3_Merge ();
 void f4_flip ();
 void f5_darken_lighten ();
 void f6_rotate ();
-// void f7_Detect_Edges ();
+void f7_Detect_Edges ();
 void f8_Enlarge_Image ();
 void f9_shrink ();
 void fa_mirror ();
@@ -115,12 +118,12 @@ int main() {
                 saveImage();
                 break;
 
-            /*
+            
             case '7':
                 f7_Detect_Edges();
-                saveImage2();
+                saveImage4();
                 break;
-            */
+            
 
 
 //          filter 8 : englarge image
@@ -132,10 +135,10 @@ int main() {
 
 
 //          filter 9 : shrink image
-          /*  case '9':
+           case '9':
                 f9_shrink();
                 saveImage();
-                break;*/
+                break;
 
 
             
@@ -243,19 +246,34 @@ void saveImage3 () {
     writeGSBMP(imageFileName, image3);
 }
 
+void saveImage4 () {
+
+    char imageFileName[100];
+
+    // Get gray scale image target file name
+    cout << "\nEnter the target image file output name: ";
+    cin >> imageFileName;
+
+    // Add to it .bmp extension and load image
+    strcat (imageFileName, ".bmp");
+    writeGSBMP(imageFileName, image4);
+}
+
 void f1_black_white() {
 //  loop in each pixel of image
-
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j< SIZE; j++) {
-    //          if pixel color above 127 (white dgrees) let it = 255 (solid white)
-                if (image[i][j][0] > 127)
-                    image3[i][j] = 255;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j< SIZE; j++) {
+    //      if pixel color above 127 (white dgrees) let it = 255 (solid white)
+            if (image[i][j][0] > 127)
+                image3[i][j] = 255;
     //          else if pixel color under 127 (black dgrees) let it = 0 (solid black)
-                else
-                    image3[i][j] = 0;
-            }
+            else
+                image3[i][j] = 0;
         }
+<<<<<<< HEAD
+    }
+=======
+>>>>>>> ab1f5670e44f609682f7c573d8e9438f01116b7d
 
 }
 
@@ -268,7 +286,7 @@ void f2_invert() {
                 image[i][j][k] = 255-image[i][j][k];
             }
         }
-    }
+    } 
 }
 
 void f3_Merge() {
@@ -433,7 +451,50 @@ void f6_rotate() {
 
 }
 
-// void f7_Detect_Edges(); { write code here }
+void f7_Detect_Edges() {
+//  convert image to black & white
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j< SIZE; j++) {
+    //      if pixel color above 127 (white dgrees) let it = 255 (solid white)
+            if (image[i][j][0] > 127)
+                image3[i][j] = 255;
+    //          else if pixel color under 127 (black dgrees) let it = 0 (solid black)
+            else
+                image3[i][j] = 0;
+        }
+    }
+
+    int j=0,i=0,bot,top,right,mid,left;
+
+    while(true){
+//      assign top & mid & right & left and bot pixels in each 3*3 matrix in photo
+        mid=image3[i+1][j+1];
+        right=image3[i+1][j+2];
+        left=image3[i+1][j];
+        bot=image3[i+2][j+1];
+        top=image3[i][j+1];
+
+//      edge detection equation
+        image4[i+1][j+1] = (right+left+bot+top) - (mid*4);
+
+
+
+//      condition to break the loop & increamnt
+        if(i==253 && j==253)  { break; }
+        else { i++; }
+
+        if(i==254) { i=0; j++; }
+
+    }
+
+//  invert image colors
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j< SIZE; j++) {
+//          subtract 255 from each pixel to get the invert pixel color
+            image4[i][j] = 255-image4[i][j];
+        }
+    }
+}
 
 void f8_Enlarge_Image() {
     unsigned int choice, startX, startY;
@@ -493,6 +554,48 @@ void f8_Enlarge_Image() {
         if  (row>256) break;
     }
 }
+
+
+
+
+void f9_shrink() {
+    //User is required to enter ratio by which the dimensions will be shrunk
+    int  min;
+    cout<<"\n\n1-to shrink image dimension to 1/2"
+    <<"\n2-to shrink image dimension to 1/3"
+    <<"\n3-to shrink image dimension to 1/4"
+    <<"\n>> "; cin >> min;
+    min+=1;
+
+    int row = 0;
+    for (int i = 0; i < SIZE; i++) {
+        int col = 0;
+        for (int j = 0; j < SIZE; j++) {
+            //If the current pixel is out of range(dependent on the ratio) set its value to 255(white)
+            if (i > SIZE / min || j > SIZE / min) {
+
+
+                image[i][j][0] = 255;
+                image[i][j][1] = 255 ;
+                image[i][j][2] = 255;
+
+
+            } else{
+            //exclude pixels depending on specified ratio
+                image[i][j][0] = image[row][col][0];
+                image[i][j][1] = image[row][col][1];
+                image[i][j][2] = image[row][col][2];
+
+
+                }
+
+        col += min;
+
+    }
+        row += min;
+
+   }
+  }
 
 /*
 void f9_shrink() {

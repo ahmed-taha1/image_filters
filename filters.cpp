@@ -389,10 +389,52 @@ void f6_rotate() {
     else{cout<<"invalid input please try again"; goto f6;}
 
 }
-int g = 0;
+
 void f7_Detect_Edges() {
-    
+//  convert image to black & white
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j< SIZE; j++) {
+//          if pixel color above 127 (white dgrees) let it = 255 (solid white)
+            if (image[i][j] > 127)
+                image[i][j] = 255;
+//          else if pixel color under 127 (black dgrees) let it = 0 (solid black)
+            else
+                image[i][j] = 0;
+        }
     }
+
+    int j=0,i=0,bot,top,right,mid,left;
+
+    while(true){
+//      assign top & mid & right & left and bot pixels in each 33 matrix in photo
+        mid=image[i+1][j+1];
+        right=image[i+1][j+2];
+        left=image[i+1][j];
+        bot=image[i+2][j+1];
+        top=image[i][j+1];
+
+//      edge detection equation
+        image2[i+1][j+1] = (right+left+bot+top) - (mid4);
+
+
+
+//      condition to break the loop & increamnt
+        if(i==253 && j==253)  { break; }
+        else { i++; }
+
+        if(i==254) { i=0; j++; }
+
+    }
+
+//  invert image colors
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j< SIZE; j++) {
+//          subtract 255 from each pixel to get the invert pixel color
+            image2[i][j] = 255-image2[i][j];
+        }
+    }
+}
+
 
 
 void f8_Enlarge_Image() {
@@ -475,6 +517,9 @@ void f9_shrink() {
 }
 int u;
 void fa_mirror() {
+    // declare return point when user enterd a wrong input
+    fa:
+
     // Asking the user which part to mirror it
     int choose ;
     cout<<"\n\nplease choose your mirror half"
@@ -520,6 +565,7 @@ void fa_mirror() {
                 u=0;
             }
             break;
+
         case 3:
             /*in the third case we make for loops to fill the part in the new array
             from up to down then mirror it */
@@ -537,6 +583,7 @@ void fa_mirror() {
                 u++;
             }
             break;
+
         case 4:
             /*in the fourth case we make for loops to fill the part in the new array
             from down to up then mirror it */
@@ -553,6 +600,11 @@ void fa_mirror() {
                 }
                 u++;
             }
+            break;
+        
+        default:
+            cout<<"Wrong input please try again..";
+            goto fa;
             break;
         }
     }
